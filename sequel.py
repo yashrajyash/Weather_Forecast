@@ -7,7 +7,7 @@ def show_loading(count):
     print('\nLoading.....')
     for i in range(count):
         print('$', end='')
-        time.sleep(0.08)
+        time.sleep(0.05)
     print('_100%')
 
 def create_table():
@@ -28,7 +28,7 @@ def create_table():
 
     conn.close()
 
-    show_loading(10)
+    show_loading(20)
     print('\nDatabase Connected Successfully!')
 
 
@@ -45,7 +45,7 @@ def insert_into_table(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd
 
     conn.close()
 
-    show_loading(10)
+    show_loading(20)
     print('\nDatabase Updated Successfully!\n')
 
 
