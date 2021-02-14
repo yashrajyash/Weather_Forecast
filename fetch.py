@@ -1,6 +1,7 @@
 from requests import get
 import json
 
+
 def fetch_data(city_name):
     
     api_key = 'cbb6b8a7a93022bfe48120a12e239d34'
