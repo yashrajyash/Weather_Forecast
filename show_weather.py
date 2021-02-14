@@ -8,7 +8,7 @@ def create_table():
     cur = conn.cursor()
 
     cur.execute("CREATE TABLE IF NOT EXISTS weather_details \
-                (city_id INTEGER PRIMARY KEY, \
+                (city_id INTEGER, \
                 city_name TEXT, \
                 date_time TEXT, \
                 temp_city TEXT, \
