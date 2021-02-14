@@ -1,14 +1,5 @@
 import sqlite3 as sql
-import time
 
-
-def show_loading(count):
-
-    print('\nLoading.....')
-    for i in range(count):
-        print('$', end='')
-        time.sleep(0.05)
-    print('_100%')
 
 def create_table():
 
@@ -28,7 +19,6 @@ def create_table():
 
     conn.close()
 
-    show_loading(20)
     print('\nDatabase Connected Successfully!')
 
 
@@ -45,7 +35,6 @@ def insert_into_table(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd
 
     conn.close()
 
-    show_loading(20)
     print('\nDatabase Updated Successfully!\n')
 
 
@@ -70,7 +59,6 @@ def main():
     create_table()
     insert_into_table(cityId = '', cityName = '', dateTime = '', tempCity = '', weatherDesc = '', windSpd = '', humid = '')
     show_database()
-    show_loading(2)
 
 if __name__ == '__main__':
 
