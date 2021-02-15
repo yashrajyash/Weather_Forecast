@@ -1,20 +1,34 @@
 from fetch import fetch_data
 from datetime import datetime
 from sequel import *
+import tkinter as tk
 
 
-def print_data(api_data):
+def get_weather(root):
+
+    create_table()
+
+    city = textField.get()
+    api_data = fetch_data(city)
 
     if api_data['cod'] == '404':
-        print(api_data['message'].capitalize())
+
+        print('\n```````````````````````````````````````')
+        print(city + ' ' + api_data['message'])
+        print('```````````````````````````````````````')
+
     else:
+
         weather_desc = str(api_data['weather'][0]['description'])
-        temp_city = str(float(api_data['main']['temp']) - 273.15)[:4] + '`C'
+        temp_city = str(float(api_data['main']['temp']) - 273.15)[:4] + '°C'
         humid = str(api_data['main']['humidity']) + '%'
         wind_spd = str(api_data['wind']['speed']) + ' kmph'
         city_name = str(api_data['name'])
         city_id = str(api_data['id'])
         date_time = '[' + str(datetime.now().strftime("%d-%b-%Y | %I:%M:%S %p")) + ']'
+        visibility = str(float(api_data['visibility'])/1000)[:4] + ' km'
+
+        insert_into_table(city_id, city_name, date_time, temp_city, weather_desc, wind_spd, humid, visibility)
 
         print('\n\n------------------------------------------------------------------------------------')
         print('Weather stats for -> {} | City-id : {} | {}'.format(city_name, city_id, date_time))
@@ -23,35 +37,34 @@ def print_data(api_data):
         print('Current Temperature   :  {}'.format(temp_city))
         print('Weather Discription   :  {}'.format(weather_desc))
         print('Wind Speed            :  {}'.format(wind_spd))
-        print('Humidity              :  {}\n'.format(humid))
+        print('Humidity              :  {}'.format(humid))
+        print('Visibility            :  {}\n'.format(visibility))
 
-        insert_into_table(city_id, city_name, date_time, temp_city, weather_desc, wind_spd, humid)
+        final_info = weather_desc + '\n' + temp_city
+        final_data = '\nCity name: ' + city_name + '\nCity id: ' + city_id + '\n' + date_time + '\nHumidity: ' + humid + '\nWind speed: ' + wind_spd + '\nVisibility: ' + visibility
 
-        yes_no = input('Do you want to check your database (Y/N) ? : ')[0].capitalize()
-
-        if yes_no == 'Y':
-            show_database()
+        label1.config(text = final_info)
+        label2.config(text = final_data)
 
 
-def main():
+# GUI
+root = tk.Tk()
 
-    city = input('\nEnter the name of the city : ').strip()
-    raw_data = fetch_data(city)
-    print_data(raw_data)
+root.geometry('600x450')
 
-if __name__ == '__main__':
+root.title('Weather Forecast App')
 
-    i = 1
-    while True:
-        if i == 1:
-            create_table()
-            main()
-            i = 0
-        print('\n------------------------------------------------------------------------------------')
-        print('Search another city?')
-        op = input("Enter 'Y' for yes and 'N' for exit : ").strip()[0]
-        print('------------------------------------------------------------------------------------\n')
-        if(op.upper() == 'Y'):
-            main()
-        else:
-            exit()
+f = ("poppins", 15, "bold" )
+t = ("poppins", 35, "bold")
+
+textField = tk.Entry(root, width = 15, font = t, bg = 'grey')
+textField.pack(pady = 20)
+textField.focus()
+textField.bind('<Return>', get_weather)
+
+label1 = tk.Label(root, font=t, bg = 'red2', fg = 'alice blue')
+label1.pack()
+label2 = tk.Label(root, font=f, bg = 'cyan4', fg = 'snow2')
+label2.pack()
+
+root.mainloop()

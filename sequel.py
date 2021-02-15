@@ -14,28 +14,25 @@ def create_table():
                 weather_desc TEXT, \
                 wind_spd TEXT, \
                 humid TEXT, \
+                visibility TEXT, \
                 PRIMARY KEY (city_id, date_time, temp_city) \
                     );")
 
     conn.close()
 
-    print('\nDatabase Connected Successfully!')
 
-
-def insert_into_table(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd, humid):
+def insert_into_table(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd, humid, visibility):
     
     conn = sql.connect('weather.db')
     cur = conn.cursor()
 
     cur.execute("INSERT INTO weather_details \
-                (city_id, city_name, date_time, temp_city, weather_desc, wind_spd, humid) \
-                VALUES (?,?,?,?,?,?,?);",(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd, humid))
+                (city_id, city_name, date_time, temp_city, weather_desc, wind_spd, humid, visibility) \
+                VALUES (?,?,?,?,?,?,?,?);",(cityId, cityName, dateTime, tempCity, weatherDesc, windSpd, humid, visibility))
 
     conn.commit()
 
     conn.close()
-
-    print('\nDatabase Updated Successfully!\n')
 
 
 def show_database():
@@ -57,9 +54,14 @@ def show_database():
 def main():
     
     create_table()
-    insert_into_table(cityId = '', cityName = '', dateTime = '', tempCity = '', weatherDesc = '', windSpd = '', humid = '')
+    insert_into_table(cityId = '', cityName = '', dateTime = '', tempCity = '', weatherDesc = '', windSpd = '', humid = '', visibility = '')
     show_database()
 
 if __name__ == '__main__':
 
-    main()
+    check = 123
+
+    if check == 404:
+        main()
+    else:
+        show_database()
