@@ -25,7 +25,7 @@ def get_weather(root):
         wind_spd = str(api_data['wind']['speed']) + ' kmph'
         city_name = str(api_data['name'])
         city_id = str(api_data['id'])
-        date_time = '[' + str(datetime.now().strftime("%d-%b-%Y | %I:%M:%S %p")) + ']'
+        date_time = '[' + str(datetime.now().strftime("%d-%b-%Y | %I:%M %p")) + ']'
         visibility = str(float(api_data['visibility'])/1000)[:4] + ' km'
 
         insert_into_table(city_id, city_name, date_time, temp_city, weather_desc, wind_spd, humid, visibility)
