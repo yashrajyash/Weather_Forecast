@@ -17,6 +17,12 @@ def get_weather(root):
         print(city + ' ' + api_data['message'])
         print('```````````````````````````````````````')
 
+        final_info = 'null' + '\n' + 'null'
+        final_data = '\nCity name: ' + 'null' + '\nCity id: ' + 'null' + '\n' + '\nHumidity: ' + 'null' + '\nWind speed: ' + 'null' + '\nVisibility: ' + 'null'
+
+        label1.config(text = final_info)
+        label2.config(text = final_data)
+
     else:
 
         weather_desc = str(api_data['weather'][0]['description'])
