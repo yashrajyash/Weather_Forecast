@@ -12,6 +12,8 @@ def get_weather(root):
     api_data = fetch_data(city)
 
     if api_data['cod'] == '404':
+        
+        #my 1st committtttttttttttttt
 
         print('\n```````````````````````````````````````')
         print(city + ' ' + api_data['message'])
