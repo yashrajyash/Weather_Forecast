@@ -13,7 +13,7 @@ def get_weather(root):
 
     if api_data['cod'] == '404':
         
-        #abcd
+        #my 1st commit
 
         print('\n```````````````````````````````````````')
         print(city + ' ' + api_data['message'])
